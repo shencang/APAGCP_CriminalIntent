@@ -12,6 +12,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 /**
@@ -27,6 +30,15 @@ public class CrimeFragment extends Fragment {
      * 代码清单 7-12 生成并使用EditText组件-1
      */
     private EditText mTitleField;
+    /**
+     * 代码清单 7-13 设置Button文字-1
+     */
+    private Button mDateButton;
+    /**
+     * 代码清单 7-14 监听CheckBox的变化-1
+     */
+    private CheckBox mSolvedCheckBox;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +80,24 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+        /**
+         * 代码清单 7-13 设置Button文字-2
+         */
+        mDateButton =(Button)v.findViewById(R.id.crime_date);
+        mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setEnabled(false);
 
+
+        /**
+         * 代码清单 7-14 监听CheckBox的变化-2
+         */
+        mSolvedCheckBox =(CheckBox)v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mCrime.setSolved(b);
+            }
+        });
 
         return v;
     }
