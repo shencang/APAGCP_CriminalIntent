@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">APAGCP-CriminalIntent</string>
+    <string name="app_name_cn">行为提醒</string>
 
     <!--代码清单7-6 添加字符串资源-->
     <string name="crime_title_hint">输入错误行为的标题</string>
