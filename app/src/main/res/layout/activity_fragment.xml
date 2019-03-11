@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".CrimeActivity">
 
-
+<!--代码清单8-4 通用的布局定义文件-->
+    <!-- 操作：改名，从activity_crime变更为activity_fragment-->
 
 </FrameLayout>
