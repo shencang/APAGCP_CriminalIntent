@@ -12,13 +12,9 @@ import android.os.Bundle;
  */
 
 public class CrimeActivity extends SingleFragmentActivity {
-    @Override
-    protected Fragment createFragment() {
-        return new CrimeFragment();
-    }
 
     /*
-    代码清单 8-9 清理CrimeActivity类
+    代码清单 8-9 清理CrimeActivity类-1
      */
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +45,14 @@ public class CrimeActivity extends SingleFragmentActivity {
 //                    .commit();
 //        }
 //    }
+
+    /*
+    代码清单 8-9 清理CrimeActivity类-2
+     */
+    @Override
+    protected Fragment createFragment(){
+        return new CrimeFragment();
+    }
+
 
 }
