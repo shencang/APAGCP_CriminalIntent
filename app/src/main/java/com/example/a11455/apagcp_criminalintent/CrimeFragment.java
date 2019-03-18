@@ -41,7 +41,7 @@ public class CrimeFragment extends Fragment {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCrime = new Crime();
     }
@@ -49,9 +49,9 @@ public class CrimeFragment extends Fragment {
     /**
      * 代码清单 7-11 覆盖onCreateView(···)方法
      */
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_crime,container,false);
 
 
@@ -61,15 +61,15 @@ public class CrimeFragment extends Fragment {
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                 //这个地方留空
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                mCrime.setTitle(charSequence.toString());
+                mCrime.setTitle(s.toString());
 
             }
 
@@ -94,8 +94,9 @@ public class CrimeFragment extends Fragment {
         mSolvedCheckBox =(CheckBox)v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mCrime.setSolved(b);
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                mCrime.setSolved(isChecked);
             }
         });
 
