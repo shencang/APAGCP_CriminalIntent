@@ -31,8 +31,6 @@ public class CrimeLab {
     }
 
     private CrimeLab(Context context){
-
-
         /**
          * 代码清单8-2 创建可容纳Crime对象的List -2
          */

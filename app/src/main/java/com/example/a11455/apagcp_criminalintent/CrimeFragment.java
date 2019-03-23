@@ -3,6 +3,7 @@ package com.example.a11455.apagcp_criminalintent;
 /**
  * 代码清单 7-9 导入支持库版Fragment
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -86,6 +87,14 @@ public class CrimeFragment extends Fragment {
         mDateButton =(Button)v.findViewById(R.id.crime_date);
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
+
+        //------------------------------------------------------
+        //自行添加的
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
 
         /**
