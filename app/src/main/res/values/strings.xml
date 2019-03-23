@@ -7,4 +7,6 @@
     <string name="crime_title_label">标题</string>
     <string name="crime_details_label">细节</string>
     <string name="crime_solved_label">解决</string>
+    <string name="crime_title">Crime Title</string>
+    <string name="crime_date">Crime Date</string>
 </resources>

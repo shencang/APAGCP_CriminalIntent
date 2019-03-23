@@ -12,13 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 /*
 代码清单 8-11 实现CrimeListFragment
  */
-public class CrimeListFragment  extends Fragment {
+public class CrimeListFragment extends Fragment {
 
     //Nothing yet
 
@@ -33,10 +35,10 @@ public class CrimeListFragment  extends Fragment {
     private CrimeAdapter mAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_crime_list,container,false);
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
 
-        mCrimeRecyclerView = (RecyclerView)view.
+        mCrimeRecyclerView = (RecyclerView) view.
                 findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -50,8 +52,8 @@ public class CrimeListFragment  extends Fragment {
     }
 
     private void updateUI() {
-        CrimeLab crimeLab =CrimeLab.get(getActivity());
-        List<Crime>crimes = crimeLab.getCrimes();
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
         mAdapter = new CrimeAdapter(crimes);
         mCrimeRecyclerView.setAdapter(mAdapter);
     }
@@ -59,31 +61,82 @@ public class CrimeListFragment  extends Fragment {
     /*
     代码清单8-17 定义ViewHolder内部类
      */
-    private class CrimeHolder extends RecyclerView.ViewHolder{
-        public CrimeHolder(LayoutInflater inflater,ViewGroup parent){
-            super(inflater.inflate(R.layout.fragment_crime,parent,false));
+        /*
+    代码清单8-24 检测用户点击事件-1
+     */
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        /*
+        代码清单 8-21 在构造方法中实例化视图组件-1
+         */
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+
+        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_crime, parent, false));
+
+              /*
+    代码清单8-24 检测用户点击事件-2
+     */
+              itemView.setOnClickListener(this);
+
+
+            /*
+        代码清单 8-21 在构造方法中实例化视图组件-2
+         */
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+
+
         }
+
+        /*
+     代码清单 8-22 实现Bind(crime)方法
+      */
+        private Crime mCrime;
+
+        public void bind(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
+
+
+        }
+                /*
+                代码清单8-24 检测用户点击事件-3
+                  */
+                public void onClick(View view){
+                    Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();
+                }
+
+
+
     }
 
     /*
     代码清单8-18 创建Adapter内部类
      */
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
-        private List<Crime>mCrimes;
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+        private List<Crime> mCrimes;
 
-        public CrimeAdapter(List<Crime> crimes){
-            mCrimes =crimes;
+        public CrimeAdapter(List<Crime> crimes) {
+            mCrimes = crimes;
         }
 
         @NonNull
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new CrimeHolder(layoutInflater,parent);
+            return new CrimeHolder(layoutInflater, parent);
         }
 
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
+            /*
+            代码清单8-23 调用bind(Crime) 方法
+             */
+            Crime crime = mCrimes.get(position);
+            holder.bind(crime);
 
         }
 
