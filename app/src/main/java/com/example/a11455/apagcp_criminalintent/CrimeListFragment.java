@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,11 @@ public class CrimeListFragment extends Fragment {
     代码清单 8-20 设置Adapter-1
      */
     private CrimeAdapter mAdapter;
+
+    /*
+    代码清单 9-3 控制图片显示-1
+     */
+    private ImageView mSolvedImageView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +93,11 @@ public class CrimeListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
 
+             /*
+             代码清单 9-3 控制图片显示-2
+              */
+            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
+
 
         }
 
@@ -99,6 +110,11 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getDate().toString());
+
+             /*
+                代码清单 9-3 控制图片显示-3
+             */
+            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
 
 
         }
@@ -145,4 +161,6 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
     }
+
+
 }
