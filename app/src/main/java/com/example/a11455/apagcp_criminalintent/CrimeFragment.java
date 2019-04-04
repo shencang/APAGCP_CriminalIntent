@@ -3,10 +3,9 @@ package com.example.a11455.apagcp_criminalintent;
 /**
  * 代码清单 7-9 导入支持库版Fragment
  */
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +16,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+
+import java.util.Date;
 
 /**
  * 代码清单 7-8 继承Fragment类
@@ -40,6 +41,11 @@ public class CrimeFragment extends Fragment {
      */
     private CheckBox mSolvedCheckBox;
 
+    /*
+     第九章挑战
+     */
+    private Date mDate;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,13 +59,13 @@ public class CrimeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.fragment_crime,container,false);
+        View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
 
         /**
          * 代码清单 7-12 生成并使用EditText组件-2
          */
-        mTitleField = (EditText)v.findViewById(R.id.crime_title);
+        mTitleField = (EditText) v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,8 +90,17 @@ public class CrimeFragment extends Fragment {
         /**
          * 代码清单 7-13 设置Button文字-2
          */
-        mDateButton =(Button)v.findViewById(R.id.crime_date);
+
+
+
+             /*
+            第九章挑战
+             */
+        mDate = new Date();
+        mDateButton = (Button) v.findViewById(R.id.crime_date);
         mDateButton.setText(mCrime.getDate().toString());
+        CharSequence mDateCharSequence = android.text.format.DateFormat.format("yyyy年,MMMM,dd日,kk:mm:ss,EEEE", mDate);
+        mDateButton.setText(mDateCharSequence);
         mDateButton.setEnabled(false);
 
         //------------------------------------------------------
@@ -100,7 +115,7 @@ public class CrimeFragment extends Fragment {
         /**
          * 代码清单 7-14 监听CheckBox的变化-2
          */
-        mSolvedCheckBox =(CheckBox)v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
@@ -111,7 +126,6 @@ public class CrimeFragment extends Fragment {
 
         return v;
     }
-
 
 
 }

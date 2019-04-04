@@ -2,6 +2,7 @@
 <!--代码清单7-7 fragment视图的布局文件-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
@@ -19,16 +20,21 @@
         android:id="@+id/crime_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/crime_title_hint"/>
+        android:hint="@string/crime_title_hint"
+        tools:ignore="Autofill,TextFields" />
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/crime_details_label"/>
+    <!--代码清单 9-4 内边距的实际应用-->
     <Button
         android:id="@+id/crime_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <!--代码清单 9-4 内边距的实际应用___用完删了-->
+    <!--android:padding="80dp"/>-->
+
 
     <CheckBox
         android:id="@+id/crime_solved"
