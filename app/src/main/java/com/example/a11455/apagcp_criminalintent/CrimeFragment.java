@@ -18,6 +18,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * 代码清单 7-8 继承Fragment类
@@ -50,7 +52,15 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+
+        /*
+        代码清单10-4 获得extra数据并取得Crime对象
+         */
+        // mCrime = new Crime();
+        UUID crimeID = (UUID) Objects.requireNonNull(getActivity()).
+                getIntent().
+                getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
     }
 
     /**
@@ -66,6 +76,10 @@ public class CrimeFragment extends Fragment {
          * 代码清单 7-12 生成并使用EditText组件-2
          */
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        /*
+        代码清单10-5 更新视图对象-1
+         */
+        mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,6 +130,10 @@ public class CrimeFragment extends Fragment {
          * 代码清单 7-14 监听CheckBox的变化-2
          */
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
+        /*
+        代码清单10-5 更新视图对象-2
+         */
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,

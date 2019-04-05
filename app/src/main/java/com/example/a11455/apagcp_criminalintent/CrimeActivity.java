@@ -1,9 +1,10 @@
 package com.example.a11455.apagcp_criminalintent;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import java.util.UUID;
 
 
 /**
@@ -12,6 +13,10 @@ import android.os.Bundle;
  */
 
 public class CrimeActivity extends SingleFragmentActivity {
+    /*
+    代码清单 10-2 创建newIntent方法-1
+     */
+    public static final String EXTRA_CRIME_ID = "com.example.a11455.apagcp.criminalintent.crime_id";
 
     /*
     代码清单 8-9 清理CrimeActivity类-1
@@ -54,5 +59,15 @@ public class CrimeActivity extends SingleFragmentActivity {
         return new CrimeFragment();
     }
 
+
+    /*
+    代码清单 10-2 创建newIntent方法-2
+     */
+    public static Intent newIntent(Context packageContext, UUID crimeId) {
+
+        Intent intent = new Intent(packageContext, CrimeActivity.class);
+        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        return intent;
+    }
 
 }

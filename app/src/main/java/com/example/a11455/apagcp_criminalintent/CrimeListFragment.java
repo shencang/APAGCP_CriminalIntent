@@ -4,6 +4,7 @@ package com.example.a11455.apagcp_criminalintent;
     代码清单 8-9 清理CrimeActivity类-3
      */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -122,7 +122,20 @@ public class CrimeListFragment extends Fragment {
                 代码清单8-24 检测用户点击事件-3
                   */
                 public void onClick(View view){
-                    Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();
+
+                    /*
+                    代码清单10-1 启动CrimeActivity
+                     */
+                    //Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();
+
+                   /*
+                   代码清单 10-3 传递Crime实例
+                    */
+//                    Intent intent = new Intent(getActivity(),CrimeActivity.class);
+//                    startActivity(intent);
+                    Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+                    startActivity(intent);
+
                 }
 
 
