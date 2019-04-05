@@ -48,6 +48,11 @@ public class CrimeFragment extends Fragment {
      */
     private Date mDate;
 
+    /*
+    代码清单 10-6 编写newInstance(UUID)方法-1
+     */
+    private static final String ARG_CRIME_ID = "crime_id";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,6 +148,19 @@ public class CrimeFragment extends Fragment {
         });
 
         return v;
+    }
+
+    /*
+   代码清单 10-6 编写newInstance(UUID)方法-2
+    */
+    public static CrimeFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+
     }
 
 
