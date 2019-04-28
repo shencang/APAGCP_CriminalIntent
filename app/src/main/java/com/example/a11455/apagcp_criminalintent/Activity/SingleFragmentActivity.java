@@ -1,4 +1,4 @@
-package com.example.a11455.apagcp_criminalintent;
+package com.example.a11455.apagcp_criminalintent.Activity;
 /*
    代码清单8-7 创建一个Activity抽象类
  */
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.a11455.apagcp_criminalintent.R;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 

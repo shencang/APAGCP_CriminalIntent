@@ -1,4 +1,4 @@
-package com.example.a11455.apagcp_criminalintent;
+package com.example.a11455.apagcp_criminalintent.Fragment;
 
     /*
     代码清单 8-9 清理CrimeActivity类-3
@@ -15,6 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.a11455.apagcp_criminalintent.Activity.CrimeActivity;
+import com.example.a11455.apagcp_criminalintent.Crime.Crime;
+import com.example.a11455.apagcp_criminalintent.Crime.CrimeLab;
+import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.List;
 

@@ -1,8 +1,10 @@
-package com.example.a11455.apagcp_criminalintent;
+package com.example.a11455.apagcp_criminalintent.Activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+
+import com.example.a11455.apagcp_criminalintent.Fragment.CrimeFragment;
 
 import java.util.UUID;
 
@@ -16,7 +18,10 @@ public class CrimeActivity extends SingleFragmentActivity {
     /*
     代码清单 10-2 创建newIntent方法-1
      */
-    public static final String EXTRA_CRIME_ID = "com.example.a11455.apagcp.criminalintent.crime_id";
+    /*
+    代码清单 10-7 使用newInstance(UUID)方法-1
+     */
+    private static final String EXTRA_CRIME_ID = "com.example.a11455.apagcp.criminalintent.crime_id";
 
     /*
     代码清单 8-9 清理CrimeActivity类-1
@@ -54,9 +59,15 @@ public class CrimeActivity extends SingleFragmentActivity {
     /*
     代码清单 8-9 清理CrimeActivity类-2
      */
+    /*
+    代码清单 10-7 使用newInstance(UUID)方法-2
+     */
     @Override
     protected Fragment createFragment(){
-        return new CrimeFragment();
+//        return new CrimeFragment();
+        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(crimeId);
+
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.a11455.apagcp_criminalintent;
+package com.example.a11455.apagcp_criminalintent.Fragment;
 
 /**
  * 代码清单 7-9 导入支持库版Fragment
@@ -17,9 +17,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.example.a11455.apagcp_criminalintent.Crime.Crime;
+import com.example.a11455.apagcp_criminalintent.R;
+
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
+
+import static com.example.a11455.apagcp_criminalintent.Crime.CrimeLab.get;
 
 /**
  * 代码清单 7-8 继承Fragment类
@@ -51,6 +55,7 @@ public class CrimeFragment extends Fragment {
     /*
     代码清单 10-6 编写newInstance(UUID)方法-1
      */
+
     private static final String ARG_CRIME_ID = "crime_id";
 
 
@@ -62,10 +67,15 @@ public class CrimeFragment extends Fragment {
         代码清单10-4 获得extra数据并取得Crime对象
          */
         // mCrime = new Crime();
-        UUID crimeID = (UUID) Objects.requireNonNull(getActivity()).
-                getIntent().
-                getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeID);
+
+        /*
+        代码清单 10-8 从argument获取数据
+         */
+//        UUID crimeID = (UUID) Objects.requireNonNull(getActivity()).
+//                getIntent().
+//                getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = get(getActivity()).getCrime(crimeID);
     }
 
     /**
@@ -153,6 +163,7 @@ public class CrimeFragment extends Fragment {
     /*
    代码清单 10-6 编写newInstance(UUID)方法-2
     */
+
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeId);

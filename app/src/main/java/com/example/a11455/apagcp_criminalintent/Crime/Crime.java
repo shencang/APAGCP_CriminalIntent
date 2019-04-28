@@ -1,4 +1,4 @@
-package com.example.a11455.apagcp_criminalintent;
+package com.example.a11455.apagcp_criminalintent.Crime;
 
 import java.util.Date;
 import java.util.UUID;
