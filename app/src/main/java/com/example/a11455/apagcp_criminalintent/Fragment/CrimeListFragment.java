@@ -65,86 +65,26 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
-        mAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+         /*
+         代码清单 10-9 在onResume()方法中刷新列表项-2
+         */
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+            // mAdapter.notifyItemChanged();
+        }
+
     }
 
     /*
-    代码清单8-17 定义ViewHolder内部类
+    代码清单 10-9 在onResume()方法中刷新列表项-1
      */
-        /*
-    代码清单8-24 检测用户点击事件-1
-     */
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        /*
-        代码清单 8-21 在构造方法中实例化视图组件-1
-         */
-        private TextView mTitleTextView;
-        private TextView mDateTextView;
-
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_crime, parent, false));
-
-              /*
-    代码清单8-24 检测用户点击事件-2
-     */
-              itemView.setOnClickListener(this);
-
-
-            /*
-        代码清单 8-21 在构造方法中实例化视图组件-2
-         */
-            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
-
-             /*
-             代码清单 9-3 控制图片显示-2
-              */
-            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
-
-
-        }
-
-        /*
-     代码清单 8-22 实现Bind(crime)方法
-      */
-        private Crime mCrime;
-
-        public void bind(Crime crime) {
-            mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
-
-             /*
-                代码清单 9-3 控制图片显示-3
-             */
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
-
-
-        }
-                /*
-                代码清单8-24 检测用户点击事件-3
-                  */
-                public void onClick(View view){
-
-                    /*
-                    代码清单10-1 启动CrimeActivity
-                     */
-                    //Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();
-
-                   /*
-                   代码清单 10-3 传递Crime实例
-                    */
-//                    Intent intent = new Intent(getActivity(),CrimeActivity.class);
-//                    startActivity(intent);
-                    Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-                    startActivity(intent);
-
-                }
-
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 
     /*
@@ -180,5 +120,81 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+    /*
+    代码清单8-17 定义ViewHolder内部类
+     */
+        /*
+    代码清单8-24 检测用户点击事件-1
+     */
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        /*
+        代码清单 8-21 在构造方法中实例化视图组件-1
+         */
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+
+        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_crime, parent, false));
+
+              /*
+    代码清单8-24 检测用户点击事件-2
+     */
+            itemView.setOnClickListener(this);
+
+
+            /*
+        代码清单 8-21 在构造方法中实例化视图组件-2
+         */
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+
+             /*
+             代码清单 9-3 控制图片显示-2
+              */
+            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
+
+
+        }
+
+        /*
+     代码清单 8-22 实现Bind(crime)方法
+      */
+        private Crime mCrime;
+
+        public void bind(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
+
+             /*
+                代码清单 9-3 控制图片显示-3
+             */
+            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+
+
+        }
+
+        /*
+        代码清单8-24 检测用户点击事件-3
+          */
+        public void onClick(View view) {
+
+                    /*
+                    代码清单10-1 启动CrimeActivity
+                     */
+            //Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();
+
+                   /*
+                   代码清单 10-3 传递Crime实例
+                    */
+//                    Intent intent = new Intent(getActivity(),CrimeActivity.class);
+//                    startActivity(intent);
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(intent);
+
+        }
+
+
+    }
 }
