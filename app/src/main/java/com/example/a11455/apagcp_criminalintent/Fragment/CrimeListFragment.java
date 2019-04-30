@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.a11455.apagcp_criminalintent.Activity.CrimeActivity;
+import com.example.a11455.apagcp_criminalintent.Activity.CrimePagerActivity;
 import com.example.a11455.apagcp_criminalintent.Crime.Crime;
 import com.example.a11455.apagcp_criminalintent.Crime.CrimeLab;
 import com.example.a11455.apagcp_criminalintent.R;
@@ -190,7 +190,12 @@ public class CrimeListFragment extends Fragment {
                     */
 //                    Intent intent = new Intent(getActivity(),CrimeActivity.class);
 //                    startActivity(intent);
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+
+            /*
+            代码清单 11-4 配置启动CrimePagerActivity
+             */
+//            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
 
         }
