@@ -9,4 +9,6 @@
     <string name="crime_solved_label">解决</string>
     <string name="crime_title">错误标题</string>
     <string name="crime_date">错误日期</string>
+    <!--代码清单12-1 为对话框标题添加字符串资源 -->
+    <string name="date_picker_title">犯错时间:</string>
 </resources>

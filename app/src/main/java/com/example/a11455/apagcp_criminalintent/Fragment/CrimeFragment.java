@@ -7,6 +7,7 @@ package com.example.a11455.apagcp_criminalintent.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -58,6 +59,10 @@ public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
 
+    /*
+    代码清单 12-3 显示DialogFragment- 1
+     */
+    private static final String DIALOG_DATE = "DialogDate";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,13 +135,19 @@ public class CrimeFragment extends Fragment {
         mDateButton.setText(mCrime.getDate().toString());
         CharSequence mDateCharSequence = android.text.format.DateFormat.format("yyyy年,MMMM,dd日,kk:mm:ss,EEEE", mDate);
         mDateButton.setText(mDateCharSequence);
-        mDateButton.setEnabled(false);
+        /*
+         代码清单 12-3 显示DialogFragment- 2
+        */
+        // mDateButton.setEnabled(false);
 
         //------------------------------------------------------
         //自行添加的
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = new DatePickerFragment();
+                dialog.show(manager, DIALOG_DATE);
             }
         });
 
