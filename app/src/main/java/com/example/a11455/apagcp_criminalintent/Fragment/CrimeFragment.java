@@ -142,11 +142,20 @@ public class CrimeFragment extends Fragment {
 
         //------------------------------------------------------
         //自行添加的
+
+        /*
+         代码清单 12-3 显示DialogFragment- 3
+        */
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = new DatePickerFragment();
+                /*
+                代码清单 12-6 添加newInstance()方法
+                 */
+                // DatePickerFragment dialog = new DatePickerFragment();
+
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
                 dialog.show(manager, DIALOG_DATE);
             }
         });
