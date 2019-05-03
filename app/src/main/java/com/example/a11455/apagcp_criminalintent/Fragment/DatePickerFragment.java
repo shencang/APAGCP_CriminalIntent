@@ -28,7 +28,7 @@ public class DatePickerFragment extends DialogFragment {
     /*
     代码清单 12-5 添加newInstance(Date)方法-1
      */
-    private static final String AGE_DATE = "date";
+    private static final String ARG_DATE = "date";
 
     private DatePicker mDatePicker;
 
@@ -43,7 +43,7 @@ public class DatePickerFragment extends DialogFragment {
 
     public static DatePickerFragment newInstance(Date date) {
         Bundle args = new Bundle();
-        args.putSerializable(AGE_DATE, date);
+        args.putSerializable(ARG_DATE, date);
 
         DatePickerFragment fragment = new DatePickerFragment();
         fragment.setArguments(args);
@@ -56,7 +56,7 @@ public class DatePickerFragment extends DialogFragment {
         /*
         代码清单 12-7 获取Date对象并初始化DatePicker-1
          */
-        Date date = (Date) getArguments().getSerializable(AGE_DATE);
+        Date date = (Date) getArguments().getSerializable(ARG_DATE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
@@ -68,15 +68,18 @@ public class DatePickerFragment extends DialogFragment {
         /*
         代码清单 12-4 给AlterDialog添加DatePicker-1
          */
-        View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_date, null);
+        View v = LayoutInflater.from(getActivity()).
+                inflate(R.layout.dialog_date, null);
         //return super.onCreateDialog(savedInstanceState);
 
 
         /*
         代码清单 12-7 获取Date对象并初始化DatePicker-2
          */
-        mDatePicker = (DatePicker) v.findViewById(R.id.dialog_date_picker);
-        mDatePicker.init(year, month, day, null);
+        mDatePicker = (DatePicker) v
+                .findViewById(R.id.dialog_date_picker);
+        mDatePicker
+                .init(year, month, day, null);
         /*
         代码清单 12-4 给AlterDialog添加DatePicker-2
          */
@@ -88,8 +91,9 @@ public class DatePickerFragment extends DialogFragment {
                 /*
                 代码清单 12-10 一起是否都OK？
                 */
-//                .setPositiveButton(android.R.string.ok, null)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//               .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         int year = mDatePicker.getYear();
@@ -113,6 +117,7 @@ public class DatePickerFragment extends DialogFragment {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_DATE, date);
 
-        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+        getTargetFragment()
+                .onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }

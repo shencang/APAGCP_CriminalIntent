@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import static com.example.a11455.apagcp_criminalintent.Crime.CrimeLab.get;
  */
 public class CrimeFragment extends Fragment {
 
+    private static final String TAG = "CrimeFragment";
     /**
      * 代码清单 7-10 覆盖Fragment.onCrate(Bundle)方法
      */
@@ -95,7 +97,8 @@ public class CrimeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.
+                inflate(R.layout.fragment_crime, container, false);
 
 
         /**
@@ -138,9 +141,7 @@ public class CrimeFragment extends Fragment {
              */
         mDate = new Date();
         mDateButton = (Button) v.findViewById(R.id.crime_date);
-        updateDate(mCrime.getDate().toString());
-        CharSequence mDateCharSequence = android.text.format.DateFormat.format("yyyy年,MMMM,dd日,kk:mm:ss,EEEE", mDate);
-        updateDate(mDateCharSequence);
+        updateDate();
         /*
          代码清单 12-3 显示DialogFragment- 2
         */
@@ -161,11 +162,13 @@ public class CrimeFragment extends Fragment {
                  */
                 // DatePickerFragment dialog = new DatePickerFragment();
 
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                DatePickerFragment dialog = DatePickerFragment
+                        .newInstance(mCrime.getDate());
                 /*
                代码清单 12-8 设置目标fragment -2
                 */
-                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialog.setTargetFragment(CrimeFragment.this,
+                        REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
         });
@@ -217,14 +220,15 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
-            updateDate(mCrime.getDate().toString());
+            updateDate();
         }
     }
 
     /*
     执行12-12后续的操作，内容12-13
      */
-    private void updateDate(CharSequence s) {
-        mDateButton.setText(s);
+    private void updateDate() {
+        mDateButton.setText(mCrime.getDate().toString());
+        Log.e(TAG, mCrime.getDate().toString());
     }
 }
