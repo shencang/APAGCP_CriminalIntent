@@ -87,8 +87,8 @@ public class CrimeFragment extends Fragment {
 //        UUID crimeID = (UUID) Objects.requireNonNull(getActivity()).
 //                getIntent().
 //                getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
-        UUID crimeID = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-        mCrime = get(getActivity()).getCrime(crimeID);
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = get(getActivity()).getCrime(crimeId);
     }
 
     /**
@@ -139,7 +139,7 @@ public class CrimeFragment extends Fragment {
              /*
             第九章挑战
              */
-        mDate = new Date();
+        //  mDate = new Date();
         mDateButton = (Button) v.findViewById(R.id.crime_date);
         updateDate();
         /*
@@ -214,7 +214,7 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
         if (requestCode == REQUEST_DATE) {

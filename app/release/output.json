@@ -7,7 +7,7 @@
       "type": "MAIN",
       "splits": [],
       "versionCode": 12,
-      "versionName": "0.12.3",
+      "versionName": "0.12.3c",
       "enabled": true,
       "outputFile": "app-release.apk",
       "fullName": "release",
