@@ -4,6 +4,8 @@ package com.example.a11455.apagcp_criminalintent.Fragment;
  * 代码清单 7-9 导入支持库版Fragment
  */
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -64,6 +66,10 @@ public class CrimeFragment extends Fragment {
      */
     private static final String DIALOG_DATE = "DialogDate";
 
+    /*
+    代码清单 12-8 设置目标fragment -1
+     */
+    private static final int REQUEST_DATE = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,9 +138,9 @@ public class CrimeFragment extends Fragment {
              */
         mDate = new Date();
         mDateButton = (Button) v.findViewById(R.id.crime_date);
-        mDateButton.setText(mCrime.getDate().toString());
+        updateDate(mCrime.getDate().toString());
         CharSequence mDateCharSequence = android.text.format.DateFormat.format("yyyy年,MMMM,dd日,kk:mm:ss,EEEE", mDate);
-        mDateButton.setText(mDateCharSequence);
+        updateDate(mDateCharSequence);
         /*
          代码清单 12-3 显示DialogFragment- 2
         */
@@ -156,6 +162,10 @@ public class CrimeFragment extends Fragment {
                 // DatePickerFragment dialog = new DatePickerFragment();
 
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                /*
+               代码清单 12-8 设置目标fragment -2
+                */
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
         });
@@ -194,5 +204,27 @@ public class CrimeFragment extends Fragment {
 
     }
 
+    /*
+    代码清单 12-11 响应DatePicker对话框
+     */
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setDate(date);
+            updateDate(mCrime.getDate().toString());
+        }
+    }
+
+    /*
+    执行12-12后续的操作，内容12-13
+     */
+    private void updateDate(CharSequence s) {
+        mDateButton.setText(s);
+    }
 }
