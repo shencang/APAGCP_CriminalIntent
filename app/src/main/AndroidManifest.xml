@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.a11455.apagcp_criminalintent">
 
+    <!--代码清单13-1 各种manifest配置项-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_super"

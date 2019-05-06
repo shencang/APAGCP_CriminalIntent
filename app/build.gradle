@@ -6,8 +6,8 @@ android {
         applicationId "com.example.a11455.apagcp_criminalintent"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 12
-        versionName "0.12.3c"
+        versionCode 13
+        versionName "0.13.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

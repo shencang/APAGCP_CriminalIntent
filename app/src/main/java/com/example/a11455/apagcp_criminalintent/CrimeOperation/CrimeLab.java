@@ -1,6 +1,8 @@
-package com.example.a11455.apagcp_criminalintent.Crime;
+package com.example.a11455.apagcp_criminalintent.CrimeOperation;
 
 import android.content.Context;
+
+import com.example.a11455.apagcp_criminalintent.Model.Crime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +41,15 @@ public class CrimeLab {
         /**
          * 代码清单8-3 生成100个crime
          */
-        for (int i=0;i<100;i++){
-            Crime crime = new Crime();
-            crime.setTitle("Crime #"+i);
-            crime.setSolved(i%2==0);//Every other one
-            mCrimes.add(crime);
-        }
+        /*
+        代码清单 13-9 再见，随机crime记录！
+         */
+//        for (int i=0;i<100;i++){
+//            Crime crime = new Crime();
+//            crime.setTitle("Crime #"+i);
+//            crime.setSolved(i%2==0);//Every other one
+//            mCrimes.add(crime);
+        //}
 
     }
 
@@ -63,6 +68,14 @@ public class CrimeLab {
             }
         }
         return  null;
+    }
+
+    /*
+    代码清单 13-8 添加新的crime
+    */
+    public void addCrime(Crime crime) {
+
+        mCrimes.add(crime);
     }
 
 }

@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--代码清单13-2 使用AppCompat主题-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

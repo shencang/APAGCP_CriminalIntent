@@ -7,18 +7,22 @@ package com.example.a11455.apagcp_criminalintent.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a11455.apagcp_criminalintent.Activity.CrimePagerActivity;
-import com.example.a11455.apagcp_criminalintent.Crime.Crime;
-import com.example.a11455.apagcp_criminalintent.Crime.CrimeLab;
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.CrimeLab;
+import com.example.a11455.apagcp_criminalintent.Model.Crime;
 import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.List;
@@ -77,10 +81,50 @@ public class CrimeListFragment extends Fragment {
         }
 
     }
+    /*
+    代码清单 13-6 实例化选项菜单
+     */
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
+    }
 
     /*
-    代码清单 10-9 在onResume()方法中刷新列表项-1
+    代码清单 13-7 调用setHasOptionMenu
      */
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    /*
+    代码清单 13-10 响应菜单项选择事件
+     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.new_crime: {
+                Crime crime = new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                startActivity(intent);
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
+    /*
+                代码清单 10-9 在onResume()方法中刷新列表项-1
+                 */
     @Override
     public void onResume() {
         super.onResume();

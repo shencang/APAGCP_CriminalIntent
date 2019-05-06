@@ -21,13 +21,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import com.example.a11455.apagcp_criminalintent.Crime.Crime;
+import com.example.a11455.apagcp_criminalintent.Model.Crime;
 import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.Date;
 import java.util.UUID;
 
-import static com.example.a11455.apagcp_criminalintent.Crime.CrimeLab.get;
+import static com.example.a11455.apagcp_criminalintent.CrimeOperation.CrimeLab.get;
 
 /**
  * 代码清单 7-8 继承Fragment类

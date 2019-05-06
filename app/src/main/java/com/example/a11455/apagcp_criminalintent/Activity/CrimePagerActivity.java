@@ -9,9 +9,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.a11455.apagcp_criminalintent.Crime.Crime;
-import com.example.a11455.apagcp_criminalintent.Crime.CrimeLab;
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.CrimeLab;
 import com.example.a11455.apagcp_criminalintent.Fragment.CrimeFragment;
+import com.example.a11455.apagcp_criminalintent.Model.Crime;
 import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.List;

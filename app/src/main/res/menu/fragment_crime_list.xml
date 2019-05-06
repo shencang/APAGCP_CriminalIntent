@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!--代码清单 13-4 创建菜单资源-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--代码清单 13-5 引用资源-->
+    <!--android:icon="@android:drawable/ic_menu_add"-->
+    <item
+        android:id="@+id/new_crime"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/new_crime"
+        app:showAsAction="ifRoom|withText">
+
+    </item>
+
+</menu>
