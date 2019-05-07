@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -105,6 +106,9 @@ public class CrimeListFragment extends Fragment {
     代码清单 13-10 响应菜单项选择事件
      */
 
+    /*
+    代码清单 13-14 响应SHOW SUBTITLE菜单项点击事件
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //return super.onOptionsItemSelected(item);
@@ -116,10 +120,26 @@ public class CrimeListFragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
+            case R.id.show_subtitle: {
+                updateSubtitle();
+                return true;
+            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    /*
+     代码清单13-13 设置工具栏子标题
+     */
+    private void updateSubtitle() {
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        int crimeCount = crimeLab.getCrimes().size();
+        String subtitle = getString(R.string.subtitle_format, crimeCount);
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
     /*

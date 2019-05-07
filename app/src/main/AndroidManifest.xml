@@ -13,7 +13,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <!--代码清单 11-5 添加CrimePagerActivity到manifest配置文件-->
-        <activity android:name=".Activity.CrimePagerActivity">
+        <!--代码清单 13-11 启动向上按钮-->
+        <activity
+            android:name=".Activity.CrimePagerActivity"
+            android:parentActivityName=".Activity.CrimeListActivity">
 
         </activity>
         <!-- 代码清单8-12 声明CrimeListActivity -->
