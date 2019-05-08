@@ -55,6 +55,11 @@ public class CrimeListFragment extends Fragment {
      */
     private boolean mSubtitleVisible;
 
+    /*
+    代码清单 13-19 保存子标题状态栏 -1
+     */
+    private static final  String SAVED_SUBTITLE = "subtitle";
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
@@ -62,6 +67,15 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView = (RecyclerView) view.
                 findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        /*
+        代码清单 13-19 保存子标题状态栏 -2
+         */
+        if (savedInstanceState !=null){
+
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE);
+
+        }
 
         /*
     代码清单 8-20 设置Adapter-1
@@ -85,6 +99,11 @@ public class CrimeListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
             // mAdapter.notifyItemChanged();
         }
+
+        /*
+        代码清单13-18 显示最新状态
+        */
+        updateSubtitle();
 
     }
     /*
@@ -170,7 +189,7 @@ public class CrimeListFragment extends Fragment {
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-    /*
+                 /*
                 代码清单 10-9 在onResume()方法中刷新列表项-1
                  */
     @Override
@@ -178,10 +197,20 @@ public class CrimeListFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+     /*
+        代码清单 13-19 保存子标题状态栏 -3
+         */
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE,mSubtitleVisible);
+
+    }
 
     /*
-    代码清单8-18 创建Adapter内部类
-     */
+        代码清单8-18 创建Adapter内部类
+         */
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
         private List<Crime> mCrimes;
 
