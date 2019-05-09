@@ -15,6 +15,6 @@
     <!--代码清单13-3 添加字符串资源-->
     <string name="new_crime">新错误</string>
     <string name="show_subtitle">显示副标题</string>
-    <string name="hide_subtitle">y隐藏副标题</string>
+    <string name="hide_subtitle">隐藏副标题</string>
     <string name="subtitle_format">%1$d 错误</string>
 </resources>
