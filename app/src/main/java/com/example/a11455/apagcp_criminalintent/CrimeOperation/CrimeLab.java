@@ -78,4 +78,12 @@ public class CrimeLab {
         mCrimes.add(crime);
     }
 
+    /*
+     第十三章挑战 第一部分 ：删除crime记录
+     */
+    public void  deleleCrime(Crime crime){
+
+        mCrimes.remove(crime);
+    }
+
 }

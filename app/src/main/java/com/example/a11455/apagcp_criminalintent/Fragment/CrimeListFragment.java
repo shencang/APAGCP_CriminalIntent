@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import com.example.a11455.apagcp_criminalintent.Model.Crime;
 import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.List;
+import java.util.Locale;
 
 /*
 代码清单 8-11 实现CrimeListFragment
@@ -58,6 +60,12 @@ public class CrimeListFragment extends Fragment {
     /*
     代码清单 13-19 保存子标题状态栏 -1
      */
+
+    /*
+      第十三章挑战 第三部分 ：用于RecyclerView的空视图
+     */
+    private TextView mEmptyTextView;
+    private Button mAddBtn;
     private static final  String SAVED_SUBTITLE = "subtitle";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +77,21 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         /*
+      第十三章挑战 第三部分 ：用于RecyclerView的空视图
+        */
+        mEmptyTextView = (TextView) view.findViewById(R.id.no_crime_in_view_tv);
+        mAddBtn = (Button)view.findViewById(R.id.add_crime_btn);
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Crime crime = new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                startActivity(intent);
+                updateUI();
+            }
+        });
+        /*
         代码清单 13-19 保存子标题状态栏 -2
          */
         if (savedInstanceState !=null){
@@ -76,6 +99,8 @@ public class CrimeListFragment extends Fragment {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE);
 
         }
+
+
 
         /*
     代码清单 8-20 设置Adapter-1
@@ -92,13 +117,26 @@ public class CrimeListFragment extends Fragment {
          /*
          代码清单 10-9 在onResume()方法中刷新列表项-2
          */
-        if (mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.notifyDataSetChanged();
-            // mAdapter.notifyItemChanged();
-        }
+          /*
+      第十三章挑战 第三部分 ：用于RecyclerView的空视图
+     */
+          if (crimes.size()>0){
+              mEmptyTextView.setVisibility(View.INVISIBLE);
+              mAddBtn.setVisibility(View.INVISIBLE);
+              mCrimeRecyclerView.setVisibility(View.VISIBLE);
+              if (mAdapter == null) {
+                  mAdapter = new CrimeAdapter(crimes);
+                  mCrimeRecyclerView.setAdapter(mAdapter);
+              } else {
+                  mAdapter.notifyDataSetChanged();
+                  // mAdapter.notifyItemChanged();
+              }
+          }else {
+              mCrimeRecyclerView.setVisibility(View.INVISIBLE);
+              mEmptyTextView.setVisibility(View.VISIBLE);
+              mAddBtn.setVisibility(View.VISIBLE);
+          }
+
 
         /*
         代码清单13-18 显示最新状态
@@ -173,9 +211,22 @@ public class CrimeListFragment extends Fragment {
      代码清单13-13 设置工具栏子标题
      */
     private void updateSubtitle() {
+         /*
+         第十三章挑战 第二部分 ：复数字符串数组
+        */
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        String subtitle;
+        Locale locale = getActivity().getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+
+        if (language.endsWith("zh")){
+            subtitle = getString(R.string.subtitle_format, crimeCount);
+        }else {
+            subtitle = getResources()
+                    .getQuantityString(R.plurals.subtitle_plural,crimeCount,crimeCount);
+        }
+
 
         /*
         代码清单 13-17 实现菜单项标题与子标题的联动
@@ -323,4 +374,7 @@ public class CrimeListFragment extends Fragment {
 
 
     }
+
+
+
 }

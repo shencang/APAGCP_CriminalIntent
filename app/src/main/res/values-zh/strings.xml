@@ -16,4 +16,14 @@
     <string name="show_subtitle">显示副标题</string>
     <string name="hide_subtitle">隐藏副标题</string>
     <string name="subtitle_format">%1$d 错误</string>
+
+    <!--第十三章挑战 第一部分 ：删除crime记录-->
+    <string name="delete_crime">删除该条错误</string>
+
+    <!--第十三章挑战 第三部分 ：用于RecyclerView的空视图-->
+    <string name="no_crime_in_view">没有犯错记录</string>
+    <string name="add_new_crime">添加新错误</string>
+
+
+
 </resources>

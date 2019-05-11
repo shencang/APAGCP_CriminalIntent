@@ -14,5 +14,19 @@
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$d crimes</string>
+
+    <!--第十三章挑战 第一部分 ：删除crime记录-->
+    <string name="delete_crime">Delete this Crime</string>
+
+    <!--第十三章挑战 第二部分 ： 复数字符串资源（中文无此问题）-->
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="zero">no crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
+
+    <!--第十三章挑战 第三部分 ：用于RecyclerView的空视图-->
+    <string name="no_crime_in_view">No record of crimes</string>
+    <string name="add_new_crime">Add new crime</string>
 </resources>
 

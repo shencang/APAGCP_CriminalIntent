@@ -14,6 +14,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,10 +24,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.example.a11455.apagcp_criminalintent.Activity.CrimePagerActivity;
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.CrimeLab;
 import com.example.a11455.apagcp_criminalintent.Model.Crime;
 import com.example.a11455.apagcp_criminalintent.R;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.example.a11455.apagcp_criminalintent.CrimeOperation.CrimeLab.get;
@@ -89,6 +95,12 @@ public class CrimeFragment extends Fragment {
 //                getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = get(getActivity()).getCrime(crimeId);
+
+
+        /*
+    第十三章挑战 第一部分 ：删除crime记录
+     */
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -230,5 +242,35 @@ public class CrimeFragment extends Fragment {
     private void updateDate() {
         mDateButton.setText(mCrime.getDate().toString());
         Log.e(TAG, mCrime.getDate().toString());
+    }
+
+    /*
+    第十三章挑战 第一部分 ：删除crime记录
+     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_crime: {
+//                Crime crime = new Crime();
+//                CrimeLab.get(getActivity()).addCrime(crime);
+//                CrimeLab.get(getActivity()).
+//                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+//                startActivity(intent);
+                CrimeLab.get(getActivity()).deleleCrime(mCrime);
+                Objects.requireNonNull(getActivity()).finish();
+                return true;
+            }
+
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_delete, menu);
     }
 }
