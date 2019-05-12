@@ -6,8 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeBaseHelper;
-import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeDbSchema;
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeCursorWrapper;
 import com.example.a11455.apagcp_criminalintent.Model.Crime;
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeDbSchema.CrimeTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,26 @@ public class CrimeLab {
 //                return  crime;
 //            }
 //        }
-        return  null;
+//        return  null;
+    /*
+    代码清单14-19 重写getCrime方法
+     */
+    CrimeCursorWrapper cursor = queryCrimes(
+            CrimeTable.Cols.UUID+"= ? ",
+            new String[]{id.toString()}
+    );
+    try {
+        if (cursor.getCount()==0){
+            return null;
+        }
+            cursor.moveToFirst();
+            return cursor.getCrime();
+
+
+    }finally {
+        cursor.close();
+    }
+
     }
 
     /*
@@ -115,7 +135,7 @@ public class CrimeLab {
         代码清单 14-9 插入记录
          */
         ContentValues values = getContentValues(crime);
-        mDatabase.insert(CrimeDbSchema.CrimeTable.NAME,null,values);
+        mDatabase.insert(CrimeTable.NAME,null,values);
     }
 
     /*
@@ -132,8 +152,8 @@ public class CrimeLab {
          */
         ContentValues values = getContentValues(crime);
         mDatabase.delete(
-                CrimeDbSchema.CrimeTable.NAME,
-                CrimeDbSchema.CrimeTable.Cols.UUID+"= ? ",
+                CrimeTable.NAME,
+                CrimeTable.Cols.UUID+"= ? ",
                 new String[]{crime.getId().toString()});
     }
 
@@ -142,10 +162,10 @@ public class CrimeLab {
      */
     private static ContentValues getContentValues(Crime crime){
         ContentValues values = new ContentValues();
-        values.put(CrimeDbSchema.CrimeTable.Cols.UUID,crime.getId().toString());
-        values.put(CrimeDbSchema.CrimeTable.Cols.TITLE,crime.getTitle());
-        values.put(CrimeDbSchema.CrimeTable.Cols.DATE,crime.getDate().getTime());
-        values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED,crime.isSolved()?1:0);
+        values.put(CrimeTable.Cols.UUID,crime.getId().toString());
+        values.put(CrimeTable.Cols.TITLE,crime.getTitle());
+        values.put(CrimeTable.Cols.DATE,crime.getDate().getTime());
+        values.put(CrimeTable.Cols.SOLVED,crime.isSolved()?1:0);
 
         return values;
     }
@@ -158,9 +178,9 @@ public class CrimeLab {
         ContentValues values = getContentValues(crime);
 
         mDatabase.update(
-                CrimeDbSchema.CrimeTable.NAME,
+                CrimeTable.NAME,
                 values,
-                CrimeDbSchema.CrimeTable.Cols.UUID+"= ? ",
+                CrimeTable.Cols.UUID+" = ? ",
                 new String[]{uuidString});
     }
 
@@ -168,9 +188,13 @@ public class CrimeLab {
     /*
     代码清单 14-12 查询crime记录
      */
-    private Cursor queryCrimes(String whereClause ,String[] whereArgs){
+    /*
+    代码清单 14-17 使用Cursor 封装方法
+     */
+//    private Cursor queryCrimes(String whereClause ,String[] whereArgs){
+    private CrimeCursorWrapper queryCrimes(String whereClause,String []whereArgs){
         Cursor cursor = mDatabase.query(
-                CrimeDbSchema.CrimeTable.NAME,
+                CrimeTable.NAME,
                 null,//Columns - null selects all columns
                 whereClause,
                 whereArgs,
@@ -178,7 +202,8 @@ public class CrimeLab {
                 null,//having
                 null//orderBy
         );
-        return cursor;
+//        return cursor;
+        return new CrimeCursorWrapper(cursor);
     }
 
 }

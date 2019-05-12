@@ -103,7 +103,7 @@ public class CrimeFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    /**
+    /*
      * 代码清单 7-11 覆盖onCreateView(···)方法
      */
     @Override
@@ -113,7 +113,7 @@ public class CrimeFragment extends Fragment {
                 inflate(R.layout.fragment_crime, container, false);
 
 
-        /**
+        /*
          * 代码清单 7-12 生成并使用EditText组件-2
          */
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
@@ -142,7 +142,7 @@ public class CrimeFragment extends Fragment {
 
             }
         });
-        /**
+        /*
          * 代码清单 7-13 设置Button文字-2
          */
 
@@ -186,7 +186,7 @@ public class CrimeFragment extends Fragment {
         });
 
 
-        /**
+        /*
          * 代码清单 7-14 监听CheckBox的变化-2
          */
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);

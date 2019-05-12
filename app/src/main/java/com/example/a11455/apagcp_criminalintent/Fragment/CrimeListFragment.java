@@ -66,7 +66,7 @@ public class CrimeListFragment extends Fragment {
      */
     private TextView mEmptyTextView;
     private Button mAddBtn;
-    private static final  String SAVED_SUBTITLE = "subtitle";
+    private static final String SAVED_SUBTITLE = "subtitle";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class CrimeListFragment extends Fragment {
       第十三章挑战 第三部分 ：用于RecyclerView的空视图
         */
         mEmptyTextView = (TextView) view.findViewById(R.id.no_crime_in_view_tv);
-        mAddBtn = (Button)view.findViewById(R.id.add_crime_btn);
+        mAddBtn = (Button) view.findViewById(R.id.add_crime_btn);
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +94,7 @@ public class CrimeListFragment extends Fragment {
         /*
         代码清单 13-19 保存子标题状态栏 -2
          */
-        if (savedInstanceState !=null){
+        if (savedInstanceState != null) {
 
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE);
 
@@ -120,22 +120,23 @@ public class CrimeListFragment extends Fragment {
           /*
       第十三章挑战 第三部分 ：用于RecyclerView的空视图
      */
-          if (crimes.size()>0){
-              mEmptyTextView.setVisibility(View.INVISIBLE);
-              mAddBtn.setVisibility(View.INVISIBLE);
-              mCrimeRecyclerView.setVisibility(View.VISIBLE);
-              if (mAdapter == null) {
-                  mAdapter = new CrimeAdapter(crimes);
-                  mCrimeRecyclerView.setAdapter(mAdapter);
-              } else {
-                  mAdapter.notifyDataSetChanged();
-                  // mAdapter.notifyItemChanged();
-              }
-          }else {
-              mCrimeRecyclerView.setVisibility(View.INVISIBLE);
-              mEmptyTextView.setVisibility(View.VISIBLE);
-              mAddBtn.setVisibility(View.VISIBLE);
-          }
+        if (crimes.size() > 0) {
+            mEmptyTextView.setVisibility(View.INVISIBLE);
+            mAddBtn.setVisibility(View.INVISIBLE);
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+            if (mAdapter == null) {
+                mAdapter = new CrimeAdapter(crimes);
+                mCrimeRecyclerView.setAdapter(mAdapter);
+            } else {
+                mAdapter.setCrimes(crimes);
+                mAdapter.notifyDataSetChanged();
+                // mAdapter.notifyItemChanged();
+            }
+        } else {
+            mCrimeRecyclerView.setVisibility(View.INVISIBLE);
+            mEmptyTextView.setVisibility(View.VISIBLE);
+            mAddBtn.setVisibility(View.VISIBLE);
+        }
 
 
         /*
@@ -220,11 +221,11 @@ public class CrimeListFragment extends Fragment {
         Locale locale = getActivity().getResources().getConfiguration().locale;
         String language = locale.getLanguage();
 
-        if (language.endsWith("zh")){
+        if (language.endsWith("zh")) {
             subtitle = getString(R.string.subtitle_format, crimeCount);
-        }else {
+        } else {
             subtitle = getResources()
-                    .getQuantityString(R.plurals.subtitle_plural,crimeCount,crimeCount);
+                    .getQuantityString(R.plurals.subtitle_plural, crimeCount, crimeCount);
         }
 
 
@@ -240,9 +241,9 @@ public class CrimeListFragment extends Fragment {
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-                 /*
-                代码清单 10-9 在onResume()方法中刷新列表项-1
-                 */
+    /*
+   代码清单 10-9 在onResume()方法中刷新列表项-1
+    */
     @Override
     public void onResume() {
         super.onResume();
@@ -255,7 +256,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SAVED_SUBTITLE,mSubtitleVisible);
+        outState.putBoolean(SAVED_SUBTITLE, mSubtitleVisible);
 
     }
 
@@ -289,6 +290,13 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        /*
+        代码清单 14-20 添加setCrimes（List<Crime>)方法
+         */
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
         }
     }
 
@@ -374,7 +382,6 @@ public class CrimeListFragment extends Fragment {
 
 
     }
-
 
 
 }
