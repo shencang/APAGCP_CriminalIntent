@@ -257,7 +257,7 @@ public class CrimeFragment extends Fragment {
 //                CrimeLab.get(getActivity()).
 //                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
 //                startActivity(intent);
-                CrimeLab.get(getActivity()).deleleCrime(mCrime);
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
                 Objects.requireNonNull(getActivity()).finish();
                 return true;
             }
@@ -272,5 +272,15 @@ public class CrimeFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_crime_delete, menu);
+    }
+
+    /*
+    代码清单14-11 Crime 数据刷新
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
     }
 }
