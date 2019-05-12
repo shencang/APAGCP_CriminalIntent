@@ -87,7 +87,23 @@ public class CrimeLab {
     代码清单 14-7 删除mCrimes相关代码 -3
      */
 //        return mCrimes;
-        return new ArrayList<>();
+//        return new ArrayList<>();
+    /*
+    代码清单 14-18 返回crime列表
+     */
+    List<Crime>crimes =new ArrayList<>();
+    CrimeCursorWrapper cursor = queryCrimes(null,null);
+
+    try {
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            crimes.add(cursor.getCrime());
+            cursor.moveToNext();
+        }
+    }finally {
+        cursor.close();
+    }
+    return crimes;
     }
 
     public Crime getCrime(UUID id){
@@ -104,7 +120,7 @@ public class CrimeLab {
     代码清单14-19 重写getCrime方法
      */
     CrimeCursorWrapper cursor = queryCrimes(
-            CrimeTable.Cols.UUID+"= ? ",
+            CrimeTable.Cols.UUID+" = ? ",
             new String[]{id.toString()}
     );
     try {
