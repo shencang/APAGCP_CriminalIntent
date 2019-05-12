@@ -1,14 +1,16 @@
 package com.example.a11455.apagcp_criminalintent.CrimeOperation;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeBaseHelper;
 import com.example.a11455.apagcp_criminalintent.Model.Crime;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
+/*
  * 代码清单8-1 创建单例
  */
 
@@ -18,11 +20,17 @@ public class CrimeLab {
 
     private  static CrimeLab sCrimeLab;
 
-    /**
+    /*
      * 代码清单8-2 创建可容纳Crime对象的List -1
      */
 
     private List<Crime> mCrimes;
+
+    /*
+    代码清单 14-4 打开SQLiteDateBase -1
+     */
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     public  static CrimeLab get(Context context){
        if (sCrimeLab==null){
@@ -33,12 +41,19 @@ public class CrimeLab {
     }
 
     private CrimeLab(Context context){
-        /**
+
+         /*
+        代码清单 14-4 打开SQLiteDateBase -2
+        */
+        mContext =context.getApplicationContext();
+        mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
+
+        /*
          * 代码清单8-2 创建可容纳Crime对象的List -2
          */
         mCrimes = new ArrayList<>();
 
-        /**
+        /*
          * 代码清单8-3 生成100个crime
          */
         /*
@@ -54,7 +69,7 @@ public class CrimeLab {
     }
 
 
-    /**
+    /*
      * 代码清单8-2 创建可容纳Crime对象的List -3
      */
     public List<Crime> getCrimes() {
