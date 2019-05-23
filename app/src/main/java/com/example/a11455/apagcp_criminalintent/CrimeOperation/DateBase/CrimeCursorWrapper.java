@@ -27,6 +27,10 @@ public class CrimeCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.DATE));
         int isSolved = getInt(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.SOLVED));
 //        return null;
+        /*
+        代码清单 15-6 读取嫌疑人信息-1
+         */
+        String suspect = getString(getColumnIndex(CrimeDbSchema.CrimeTable.Cols.SUSPECT));
 
         /*
         代码清单14-16 完成getCrime()方法
@@ -35,6 +39,10 @@ public class CrimeCursorWrapper extends CursorWrapper {
         crime.setTitle(title);
         crime.setDate(new Date(date));
         crime.setSolved(isSolved != 0);
+        /*
+        代码清单 15-6 读取嫌疑人信息-2
+         */
+        crime.setmSuspect(suspect);
 
         return crime;
     }

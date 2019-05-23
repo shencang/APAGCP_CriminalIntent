@@ -24,6 +24,17 @@
     <string name="no_crime_in_view">没有犯错记录</string>
     <string name="add_new_crime">添加新错误</string>
 
+    <!--代码清单 15-1 添加按钮用字符串-->
+    <string name="crime_suspect_text">选择嫌疑人</string>
+    <string name="crime_report_text">发送罪行报告</string>
 
+    <!--代码清单 15-7 添加字符串资源-->
+    <string name="crime_report">%1$s!
+    犯罪是在%2$s、%3$s和%4$s上发现的</string>
+    <string name="crime_report_solved">案例已解决</string>
+    <string name="crime_report_unsolved">>案例未解决</string>
+    <string name="crime_report_no_suspect">嫌疑犯是 %s.</string>
+    <string name="crime_report_subject">犯罪意图犯罪报告</string>
+    <string name="send_report">通过发送犯罪报告</string>
 
 </resources>

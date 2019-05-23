@@ -13,6 +13,11 @@ public class Crime {
     private Date    mDate;
     private boolean mSolved;
 
+    /*
+    代码清单 15-2 添加nSuspect成员变量 - 1
+     */
+    private String mSuspect;
+
     public Crime(){
 
         /*
@@ -59,5 +64,18 @@ public class Crime {
 
     public void setSolved(boolean mSolved) {
         this.mSolved = mSolved;
+    }
+
+
+    /*
+    代码清单 15-2 添加nSuspect成员变量 - 2
+     */
+
+    public String getmSuspect() {
+        return mSuspect;
+    }
+
+    public void setmSuspect(String mSuspect) {
+        this.mSuspect = mSuspect;
     }
 }

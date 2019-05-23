@@ -28,5 +28,19 @@
     <!--第十三章挑战 第三部分 ：用于RecyclerView的空视图-->
     <string name="no_crime_in_view">No record of crimes</string>
     <string name="add_new_crime">Add new crime</string>
+
+    <!--代码清单 15-1 添加按钮用字符串-->
+    <string name="crime_suspect_text">Choose Suspect</string>
+    <string name="crime_report_text">Send Crime Report</string>
+
+    <!--代码清单 15-7 添加字符串资源-->
+    <string name="crime_report">%1$s!
+    The crime was discovered on %2$s. %3$s,and %4$s</string>
+    <string name="crime_report_solved">The case is solved</string>
+    <string name="crime_report_unsolved">>The case is no solved</string>
+    <string name="crime_report_no_suspect">the suspect is %s.</string>
+    <string name="crime_report_subject">CriminalIntent Crime Report</string>
+    <string name="send_report">send crime report via</string>
+
 </resources>
 

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.a11455.apagcp_criminalintent.CrimeOperation.DateBase.CrimeDbSchema.CrimeTable;
+import com.example.a11455.apagcp_criminalintent.Model.Crime;
 
 /*
  代码清单14-3 创建CrimeBaseHelper类
@@ -38,6 +39,10 @@ public class CrimeBaseHelper extends SQLiteOpenHelper {
                 + CrimeTable.Cols.DATE
                 +","
                 +CrimeTable.Cols.SOLVED
+                /*
+                代码清单 15-4 添加嫌疑人数据库字段
+                 */
+                + CrimeTable.Cols.SUSPECT
                 +")"
         );
     }
