@@ -34,6 +34,7 @@
     <string name="crime_report_solved">案例已解决</string>
     <string name="crime_report_unsolved">>案例未解决</string>
     <string name="crime_report_no_suspect">嫌疑犯是 %s.</string>
+    <string name="crime_report_suspect">嫌疑犯是 %s.</string>
     <string name="crime_report_subject">犯罪意图犯罪报告</string>
     <string name="send_report">通过发送犯罪报告</string>
 
