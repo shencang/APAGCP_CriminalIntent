@@ -185,7 +185,7 @@ public class CrimeLab {
         /*
         代码清单 15-5 写入嫌疑人信息
          */
-        values.put(CrimeTable.Cols.SUSPECT,crime.getmSuspect());
+        values.put(CrimeTable.Cols.SUSPECT,crime.getSuspect());
         return values;
     }
 

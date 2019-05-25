@@ -60,6 +60,12 @@ public class CrimeFragment extends Fragment {
     private CheckBox mSolvedCheckBox;
 
     /*
+    代码清单 15-9 发送消息- 1
+     */
+    private Button mReportButton;
+
+
+    /*
      第九章挑战
      */
     private Date mDate;
@@ -203,6 +209,23 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+
+        /*
+        代码清单 15-9 发送消息- 2
+        */
+        mReportButton = (Button) v.findViewById(R.id.crime_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT,getCrimeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.crime_report_subject));
+                startActivity(i);
+
+            }
+        });
+
         return v;
     }
 
@@ -248,7 +271,7 @@ public class CrimeFragment extends Fragment {
     /*
     代码清单 15-8 新增getCrimeReport()方法
      */
-    private  String getCrimeReoprt(){
+    private  String getCrimeReport(){
         String solvedString = null;
         if (mCrime.isSolved()){
             solvedString = getString(R.string.crime_report_solved);
@@ -259,7 +282,7 @@ public class CrimeFragment extends Fragment {
         String dateFormat = "EEE, MMM, dd";
         String dateString = DateFormat.format(dateFormat,mCrime.getDate()).toString();
 
-        String suspect = mCrime.getmSuspect();
+        String suspect = mCrime.getSuspect();
         if (suspect== null){
             suspect =getString(R.string.crime_report_no_suspect);
         }else {
@@ -269,11 +292,6 @@ public class CrimeFragment extends Fragment {
                 mCrime.getTitle(),dateString,solvedString,suspect);
 
         return report;
-
-
-
-
-
     }
 
     /*
@@ -315,4 +333,7 @@ public class CrimeFragment extends Fragment {
 
         CrimeLab.get(getActivity()).updateCrime(mCrime);
     }
+
+
+
 }

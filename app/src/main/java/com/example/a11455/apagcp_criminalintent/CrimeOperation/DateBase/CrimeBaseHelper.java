@@ -42,6 +42,7 @@ public class CrimeBaseHelper extends SQLiteOpenHelper {
                 /*
                 代码清单 15-4 添加嫌疑人数据库字段
                  */
+                +","
                 + CrimeTable.Cols.SUSPECT
                 +")"
         );

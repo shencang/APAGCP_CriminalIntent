@@ -71,11 +71,11 @@ public class Crime {
     代码清单 15-2 添加nSuspect成员变量 - 2
      */
 
-    public String getmSuspect() {
-        return mSuspect;
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
     }
 
-    public void setmSuspect(String mSuspect) {
-        this.mSuspect = mSuspect;
+    public String getSuspect() {
+        return mSuspect;
     }
 }

@@ -42,7 +42,7 @@ public class CrimeCursorWrapper extends CursorWrapper {
         /*
         代码清单 15-6 读取嫌疑人信息-2
          */
-        crime.setmSuspect(suspect);
+        crime.setSuspect(suspect);
 
         return crime;
     }
