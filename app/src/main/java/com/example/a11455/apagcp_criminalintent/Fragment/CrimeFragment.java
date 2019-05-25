@@ -7,6 +7,7 @@ package com.example.a11455.apagcp_criminalintent.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,6 +65,10 @@ public class CrimeFragment extends Fragment {
      */
     private Button mReportButton;
 
+     /*
+    代码清单 15-11 添加嫌疑人按钮成员变量-2
+     */
+     private Button mSuspectButton;
 
     /*
      第九章挑战
@@ -85,6 +90,11 @@ public class CrimeFragment extends Fragment {
     代码清单 12-8 设置目标fragment -1
      */
     private static final int REQUEST_DATE = 0;
+
+    /*
+    代码清单 15-11 添加嫌疑人按钮成员变量-1
+     */
+    private  static  final  int REQUEST_CONTACT = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,10 +231,26 @@ public class CrimeFragment extends Fragment {
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT,getCrimeReport());
                 i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.crime_report_subject));
+                i = Intent.createChooser(i,getString(R.string.send_report));
                 startActivity(i);
 
             }
         });
+
+        /*
+        代码清单 15-12 发送隐式intent
+         */
+        final  Intent pickcontent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        mReportButton =(Button)v.findViewById(R.id.crime_suspect);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(pickcontent,REQUEST_CONTACT);
+            }
+        });
+        if (mCrime.getSuspect()!= null){
+            mSuspectButton.setText(mCrime.getSuspect());
+        }
 
         return v;
     }
@@ -288,6 +314,7 @@ public class CrimeFragment extends Fragment {
         }else {
             suspect = getString(R.string.crime_report_suspect,suspect);
         }
+        //该处等待处理
         String report  = getString(R.string.send_report,
                 mCrime.getTitle(),dateString,solvedString,suspect);
 
