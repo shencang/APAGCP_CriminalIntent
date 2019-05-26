@@ -6,6 +6,9 @@ package com.example.a11455.apagcp_criminalintent.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -240,16 +243,32 @@ public class CrimeFragment extends Fragment {
         /*
         代码清单 15-12 发送隐式intent
          */
-        final  Intent pickcontent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        mReportButton =(Button)v.findViewById(R.id.crime_suspect);
-        mReportButton.setOnClickListener(new View.OnClickListener() {
+        final  Intent pickContent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        /*
+        代码清单 15-15 过滤器验证代码
+         */
+        /*
+        代码清单 15-16 删除验证代码
+         */
+      //  pickContent.addCategory(Intent.CATEGORY_HOME);
+        mSuspectButton =(Button)v.findViewById(R.id.crime_suspect);
+        mSuspectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(pickcontent,REQUEST_CONTACT);
+                startActivityForResult(pickContent,REQUEST_CONTACT);
             }
         });
         if (mCrime.getSuspect()!= null){
             mSuspectButton.setText(mCrime.getSuspect());
+        }
+
+
+        /*
+        代码清单 15-14 检查是否存在联系人应用
+         */
+        PackageManager packageManager = getActivity().getPackageManager();
+        if (packageManager.resolveActivity(pickContent,PackageManager.MATCH_DEFAULT_ONLY)==null){
+            mSuspectButton.setEnabled(false);
         }
 
         return v;
@@ -279,11 +298,46 @@ public class CrimeFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
+        /*
+        补充：代码清单12-11遗漏的部分，于19.5.26修改
+         */
         if (requestCode == REQUEST_DATE) {
-            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             updateDate();
+
+            /*
+            代码清单 15-13 获取联系人姓名
+             */
+        } else if (requestCode == REQUEST_CONTACT && data != null) {
+            Uri contactUri = data.getData();
+            // Specify which fields you want your query to return
+            // values for.
+            String[] queryFields = new String[]{
+                    ContactsContract.Contacts.DISPLAY_NAME
+            };
+            // Perform your query - the contactUri is like a "where"
+            // clause here
+            Cursor c = getActivity().getContentResolver()
+                    .query(contactUri, queryFields, null, null, null);
+            try {
+                // Double-check that you actually got results
+                if (c.getCount() == 0) {
+                    return;
+                }
+                // Pull out the first column of the first row of data -
+                // that is your suspect's name.
+                c.moveToFirst();
+                String suspect = c.getString(0);
+                mCrime.setSuspect(suspect);
+                mSuspectButton.setText(suspect);
+            } finally {
+                c.close();
+            }
         }
+
+
     }
 
     /*
@@ -315,8 +369,13 @@ public class CrimeFragment extends Fragment {
             suspect = getString(R.string.crime_report_suspect,suspect);
         }
         //该处等待处理
-        String report  = getString(R.string.send_report,
-                mCrime.getTitle(),dateString,solvedString,suspect);
+//        String report  = getString(R.string.send_report,
+//                mCrime.getTitle(),dateString,solvedString,suspect);
+        String report  = getString(R.string.send_report)+"\n" +
+                getString(R.string.title_is)+mCrime.getTitle()+"\n"+
+                getString(R.string.date_is)+ dateString+"\n"+
+                getString(R.string.solved_is)+solvedString+"\n"+
+                suspect;
 
         return report;
     }

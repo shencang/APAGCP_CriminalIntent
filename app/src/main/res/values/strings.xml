@@ -43,5 +43,10 @@
     <string name="crime_report_subject">CriminalIntent Crime Report</string>
     <string name="send_report">send crime report via</string>
 
+    <!--十五章规范化补充文本-->
+    <string name="date_is">date:</string>
+    <string name="title_is">title:</string>
+    <string name="solved_is">solved:</string>
+
 </resources>
 

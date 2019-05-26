@@ -36,6 +36,12 @@
     <string name="crime_report_no_suspect">嫌疑犯是 %s.</string>
     <string name="crime_report_suspect">嫌疑犯是 %s.</string>
     <string name="crime_report_subject">犯罪意图犯罪报告</string>
-    <string name="send_report">通过发送犯罪报告</string>
+    <string name="send_report">发送犯罪报告</string>
+
+    <!--十五章规范化补充文本-->
+    <string name="date_is">日期:</string>
+    <string name="title_is">标题:</string>
+    <string name="solved_is">解决状况:</string>
+
 
 </resources>
