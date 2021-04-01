@@ -17,3 +17,5 @@ Android 编程权威指南挑战记录
 * 为了使得目录更美观一些，更新日志被移动到单独的文件下：
 ###### [新的更新日志](https://github.com/shencang/APAGCP_CriminalIntent/blob/master/updateLog.md)
 ----
+
+## a备注
